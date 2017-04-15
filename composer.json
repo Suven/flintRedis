@@ -1,5 +1,6 @@
 {
     "name": "suven/flint-redis",
+    "description": "wrapper around flintstone and predis",
     "type": "library",
     "authors": [
         {

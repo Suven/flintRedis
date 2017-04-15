@@ -1,5 +1,9 @@
 # [WIP] suven/flint-redis
 
+[![Build Status](https://travis-ci.org/Suven/flintRedis.svg?branch=master)](https://travis-ci.org/Suven/flintRedis)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Suven/flintRedis/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Suven/flintRedis/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/Suven/flintRedis/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Suven/flintRedis/?branch=master)
+
 Super-thin and opinionated wrapper around [flintstone](https://github.com/fire015/flintstone) and [predis](https://github.com/nrk/predis).
 
 Enables you to store multiple key-value collections with redis or the filesystem.

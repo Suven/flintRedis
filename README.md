@@ -36,7 +36,7 @@ comes with all functions, those two providers share.
 
 ## Usage
 
-```
+```php
 use Suven\FlintRedis\FlintRedisCacheFactory;
 
 // Get a new redis-instance for a collection named settings

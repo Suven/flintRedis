@@ -1,4 +1,4 @@
-# [WIP] suven/flint-redis
+# suven/flint-redis
 
 [![Build Status](https://travis-ci.org/Suven/flintRedis.svg?branch=master)](https://travis-ci.org/Suven/flintRedis)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Suven/flintRedis/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Suven/flintRedis/?branch=master)

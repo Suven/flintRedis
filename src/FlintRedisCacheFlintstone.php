@@ -1,6 +1,8 @@
 <?php
 namespace Suven\FlintRedis;
 
+use Flintstone\Flintstone;
+
 class FlintRedisCacheFlintstone implements FlintRedisCache
 {
 

@@ -1,7 +1,7 @@
 <?php
 namespace Suven\FlintRedis;
 
-class FlintRedisCacheFactory
+abstract class FlintRedisCacheFactory
 {
     const STRATEGY_REDIS = 1;
     const STRATEGY_FLINTSTONE = 2;
@@ -55,11 +55,11 @@ class FlintRedisCacheFactory
     private static function newCacheInstance($strategy, $realm, $options)
     {
         if ($strategy === self::STRATEGY_REDIS) {
-            return new FlintRedisCacheRedis($strategy, $realm, $options);
+            return new FlintRedisCacheRedis($realm, $options);
         }
 
         if ($strategy === self::STRATEGY_FLINTSTONE) {
-            return new FlintRedisCacheRedis($strategy, $realm, $options);
+            return new FlintRedisCacheFlintstone($realm, $options);
         }
     }
 }

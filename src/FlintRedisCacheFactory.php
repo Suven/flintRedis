@@ -76,7 +76,7 @@ abstract class FlintRedisCacheFactory
         $key = self::getKey($realm, $strategy);
         $fullKey = self::getFullKey($key, $options);
 
-        $instance;
+        $instance = false;
 
         if ($strategy === self::STRATEGY_REDIS) {
             $instance = new FlintRedisCacheRedis($realm, $options);

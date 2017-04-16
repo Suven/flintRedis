@@ -19,6 +19,22 @@ abstract class FlintRedisCacheFactory
         return "${key}.${optionsKey}";
     }
 
+    /**
+     * Retrieves a new or previously created cache-instance for the provided
+     * parameters.
+     *
+     * If you previously created an instance for a collection 'foo' with a
+     * strategy [and options] and are later 'creating' in instance but only
+     * provide the realm 'foo', you will retreive your previously created instance.
+     *
+     * That way you only have to provide the strategy and options once per $realm.
+     *
+     * @param  string  $realm    Your collections name
+     * @param  number  $strategy Either FlintRedisCacheFactory::STRATEGY_REDIS
+     *                           or FlintRedisCacheFactory:: STRATEGY_FLINTSTONE
+     * @param  array   $options  Options you want to pass to predis/flintstone
+     * @return FlintRedisCache
+     */
     public static function create($realm, $strategy = false, $options = false)
     {
         $key = self::getKey($realm, $strategy);

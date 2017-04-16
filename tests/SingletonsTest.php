@@ -12,16 +12,18 @@ class SingletonsTest extends TestCase
     {
         // All the same
         $instanceA1 = FlintRedisCacheFactory::create("testLazylyGetSameInstance-a", FlintRedisCacheFactory::STRATEGY_REDIS, [ 'foo' => 'bar' ]);
-        $instanceA2 = FlintRedisCacheFactory::create("testLazylyGetSameInstance-a", FlintRedisCacheFactory::STRATEGY_REDIS);
-        $instanceA3 = FlintRedisCacheFactory::create("testLazylyGetSameInstance-a");
+        $instanceA2 = FlintRedisCacheFactory::create("testLazylyGetSameInstance-a", FlintRedisCacheFactory::STRATEGY_REDIS, [ 'foo' => 'bar' ]);
+        $instanceA3 = FlintRedisCacheFactory::create("testLazylyGetSameInstance-a", FlintRedisCacheFactory::STRATEGY_REDIS);
+        $instanceA4 = FlintRedisCacheFactory::create("testLazylyGetSameInstance-a");
         // Different ones
-        $instanceA4 = FlintRedisCacheFactory::create("testLazylyGetSameInstance-a", FlintRedisCacheFactory::STRATEGY_FLINTSTONE, [ 'foo' => 'bar' ]);
-        $instanceA5 = FlintRedisCacheFactory::create("testLazylyGetSameInstance-a", FlintRedisCacheFactory::STRATEGY_REDIS, [ 'bar' => 'bar' ]);
+        $instanceA5 = FlintRedisCacheFactory::create("testLazylyGetSameInstance-a", FlintRedisCacheFactory::STRATEGY_FLINTSTONE, [ 'foo' => 'bar' ]);
+        $instanceA6 = FlintRedisCacheFactory::create("testLazylyGetSameInstance-a", FlintRedisCacheFactory::STRATEGY_REDIS, [ 'bar' => 'bar' ]);
 
         $this->assertSame($instanceA1, $instanceA2);
         $this->assertSame($instanceA1, $instanceA3);
-        $this->assertNotSame($instanceA1, $instanceA4);
+        $this->assertSame($instanceA1, $instanceA4);
         $this->assertNotSame($instanceA1, $instanceA5);
+        $this->assertNotSame($instanceA1, $instanceA6);
     }
 
     public function testDifferentRealms()

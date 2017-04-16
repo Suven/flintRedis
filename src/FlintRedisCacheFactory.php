@@ -37,45 +37,57 @@ abstract class FlintRedisCacheFactory
      */
     public static function create($realm, $strategy = false, $options = false)
     {
+        $instance = self::retrieveOldInstance($strategy, $realm, $options);
+
+        if (!$instance) {
+            $instance = self::newCacheInstance($strategy, $realm, $options);
+        }
+
+        return $instance;
+    }
+
+    private static function retrieveOldInstance($strategy, $realm, $options)
+    {
         $key = self::getKey($realm, $strategy);
         $fullKey = self::getFullKey($key, $options);
 
+        $instance = false;
+
         if ($strategy && $options && isset(self::$cachedInstances[$fullKey])) {
-            return self::$cachedInstances[$fullKey];
+            $instance = self::$cachedInstances[$fullKey];
         }
 
         if ($strategy && !$options && isset(self::$cachedInstances[$key])) {
-            return self::$cachedInstances[$key];
+            $instance = self::$cachedInstances[$key];
         }
 
         if (!$strategy && !$options && isset(self::$cachedInstances[$realm])) {
-            return self::$cachedInstances[$realm];
+            $instance = self::$cachedInstances[$realm];
         }
-
-        // No instance available so far... Lets create one with default values
-        $strategy = $strategy ? $strategy : self::STRATEGY_REDIS;
-        $options = $options ? $options : [];
-
-        $key = self::getKey($realm, $strategy);
-        $fullKey = self::getFullKey($key, $options);
-
-        $instance = self::newCacheInstance($strategy, $realm, $options);
-
-        self::$cachedInstances[$fullKey] = &$instance;
-        self::$cachedInstances[$key] = &$instance;
-        self::$cachedInstances[$realm] = &$instance;
 
         return $instance;
     }
 
     private static function newCacheInstance($strategy, $realm, $options)
     {
+        $strategy = $strategy ? $strategy : self::STRATEGY_REDIS;
+        $options = $options ? $options : [];
+
+        $key = self::getKey($realm, $strategy);
+        $fullKey = self::getFullKey($key, $options);
+
+        $instance;
+
         if ($strategy === self::STRATEGY_REDIS) {
-            return new FlintRedisCacheRedis($realm, $options);
+            $instance = new FlintRedisCacheRedis($realm, $options);
+        } else {
+            $instance = new FlintRedisCacheFlintstone($realm, $options);
         }
 
-        if ($strategy === self::STRATEGY_FLINTSTONE) {
-            return new FlintRedisCacheFlintstone($realm, $options);
-        }
+        self::$cachedInstances[$fullKey] = &$instance;
+        self::$cachedInstances[$key] = &$instance;
+        self::$cachedInstances[$realm] = &$instance;
+
+        return $instance;
     }
 }

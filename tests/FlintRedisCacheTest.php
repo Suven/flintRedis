@@ -82,7 +82,7 @@ class FlintRedisCacheTest extends TestCase
     {
         return [
             'flintstone' => [ FlintRedisCacheFactory::create('testGet', FlintRedisCacheFactory::STRATEGY_FLINTSTONE) ],
-            // 'redis' => [ FlintRedisCacheFactory::create('testGet', FlintRedisCacheFactory::STRATEGY_REDIS) ]
+            'redis' => [ FlintRedisCacheFactory::create('testGet', FlintRedisCacheFactory::STRATEGY_REDIS) ]
         ];
     }
 
@@ -90,7 +90,7 @@ class FlintRedisCacheTest extends TestCase
     {
         return [
             'flintstone' => [ FlintRedisCacheFactory::create('testGet', FlintRedisCacheFactory::STRATEGY_FLINTSTONE) ],
-            // 'redis' => [ FlintRedisCacheFactory::create('testGet', FlintRedisCacheFactory::STRATEGY_REDIS) ]
+            'redis' => [ FlintRedisCacheFactory::create('testGet', FlintRedisCacheFactory::STRATEGY_REDIS) ]
         ];
     }
 }

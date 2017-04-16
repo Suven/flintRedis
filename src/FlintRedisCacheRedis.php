@@ -18,12 +18,18 @@ class FlintRedisCacheRedis implements FlintRedisCache
 
     public function get($key)
     {
-        return $this->predis->hget($this->realm, $key);
+        return unserialize($this->predis->hget($this->realm, $key));
     }
 
     public function getAll()
     {
-        return $this->predis->hgetall($this->realm);
+        $values = [];
+
+        foreach ($this->predis->hgetall($this->realm) as $k => $v) {
+            $values[$k] = unserialize($v);
+        }
+
+        return $values;
     }
 
     public function getKeys()
@@ -33,7 +39,7 @@ class FlintRedisCacheRedis implements FlintRedisCache
 
     public function set($key, $value)
     {
-        return $this->predis->hser($this->realm, $key, $value);
+        return $this->predis->hset($this->realm, $key, serialize($value));
     }
 
     public function delete($key)

@@ -6,7 +6,7 @@ use Flintstone\Flintstone;
 class FlintRedisCacheFlintstone implements FlintRedisCache
 {
 
-    private $flintestone;
+    private $flintstone;
 
     public function __construct($realm = 'default', $options = [])
     {

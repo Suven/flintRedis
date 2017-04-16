@@ -3,6 +3,7 @@ namespace Suven\FlintRedis\Test;
 
 use Suven\FlintRedis\FlintRedisCacheFactory;
 
+// @codingStandardsIgnoreStart
 class SingletonsTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -42,7 +43,8 @@ class SingletonsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotSame($instanceB1, $instanceB2, "Different options, provide different instances");
     }
 
-    public function testNoOptionFallback() {
+    public function testNoOptionFallback()
+    {
         $instanceA1 = FlintRedisCacheFactory::create("testNoOptionFallback-a", FlintRedisCacheFactory::STRATEGY_REDIS, [ 'foo' => 'bar' ]);
         $instanceA2 = FlintRedisCacheFactory::create("testNoOptionFallback-a", FlintRedisCacheFactory::STRATEGY_REDIS);
         $instanceA3 = FlintRedisCacheFactory::create("testNoOptionFallback-a");
@@ -52,9 +54,8 @@ class SingletonsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame($instanceA1, $instanceA2, "Providing no options, returns a previous instance");
         $this->assertSame($instanceA1, $instanceA3, "Providing no options, returns a previous instance");
-        $this->assertSame($instanceB1, $instanceB2, "Providing no options, returns a previous instance");;
+        $this->assertSame($instanceB1, $instanceB2, "Providing no options, returns a previous instance");
         $this->assertSame($instanceB1, $instanceB3, "Providing no options, returns a previous instance");
-        $this->assertNotSame($instanceA1, $instanceB1,  "Different realms, provide different instances");
+        $this->assertNotSame($instanceA1, $instanceB1, "Different realms, provide different instances");
     }
-
 }

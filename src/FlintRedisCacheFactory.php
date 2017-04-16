@@ -52,7 +52,8 @@ class FlintRedisCacheFactory
         return $instance;
     }
 
-    private static function newCacheInstance($strategy, $realm, $options) {
+    private static function newCacheInstance($strategy, $realm, $options)
+    {
         if ($strategy === self::STRATEGY_REDIS) {
             return new FlintRedisCacheRedis($strategy, $realm, $options);
         }
@@ -61,5 +62,4 @@ class FlintRedisCacheFactory
             return new FlintRedisCacheRedis($strategy, $realm, $options);
         }
     }
-
 }

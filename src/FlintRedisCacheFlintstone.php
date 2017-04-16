@@ -40,5 +40,4 @@ class FlintRedisCacheFlintstone implements FlintRedisCache
     {
         return $this->flintstone->flush();
     }
-
 }

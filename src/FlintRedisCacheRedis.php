@@ -45,5 +45,4 @@ class FlintRedisCacheRedis implements FlintRedisCache
     {
         return $this->predis->hdel($this->realm, $this->getKeys());
     }
-
 }

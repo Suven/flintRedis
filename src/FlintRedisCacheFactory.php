@@ -8,29 +8,48 @@ class FlintRedisCacheFactory
 
     private static $cachedInstances = [];
 
-    public static function create($realm, $strategy = self::STRATEGY_REDIS, $options = [])
+    private static function getKey($realm, $strategy)
     {
-        $key = "${strategy}.${realm}";
-        $instance = false;
+        return "${realm}.${strategy}";
+    }
 
-        if (!empty($options)) {
-            $optionsKey = md5(json_encode($options));
-            $fullKey = "${key}.${optionsKey}";
+    private static function getFullKey($key, $options)
+    {
+        $optionsKey = md5(json_encode($options));
+        return "${key}.${optionsKey}";
+    }
 
-            if (!isset(self::$cachedInstances[$fullKey])) {
-                $instance = self::newCacheInstance($strategy, $realm, $options);
-                self::$cachedInstances[$fullKey] = &$instance;
-                self::$cachedInstances[$key] = &$instance;
-            }
+    public static function create($realm, $strategy = false, $options = false)
+    {
+        $key = self::getKey($realm, $strategy);
+        $fullKey = self::getFullKey($key, $options);
 
+        if ($strategy && $options && isset(self::$cachedInstances[$fullKey])) {
             return self::$cachedInstances[$fullKey];
         }
 
-        if (!isset(self::$cachedInstances[$key])) {
-            self::$cachedInstances[$key] = self::newCacheInstance($strategy, $realm, $options);
+        if ($strategy && !$options && isset(self::$cachedInstances[$key])) {
+            return self::$cachedInstances[$key];
         }
 
-        return self::$cachedInstances[$key];
+        if (!$strategy && !$options && isset(self::$cachedInstances[$realm])) {
+            return self::$cachedInstances[$realm];
+        }
+
+        // No instance available so far... Lets create one with default values
+        $strategy = $strategy ? $strategy : self::STRATEGY_REDIS;
+        $options = $options ? $options : [];
+
+        $key = self::getKey($realm, $strategy);
+        $fullKey = self::getFullKey($key, $options);
+
+        $instance = self::newCacheInstance($strategy, $realm, $options);
+
+        self::$cachedInstances[$fullKey] = &$instance;
+        self::$cachedInstances[$key] = &$instance;
+        self::$cachedInstances[$realm] = &$instance;
+
+        return $instance;
     }
 
     private static function newCacheInstance($strategy, $realm, $options) {

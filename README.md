@@ -53,6 +53,9 @@ $stuff = FlintRedisCacheFactory::create("stuff", FlintRedisCacheFactory::STRATEG
     'foo' => 'bar'
 ]);
 
+// When accessing the same collection again, you don't need to pass the options/strategy again
+$sameStuffAsBefore = FlintRedisCacheFactory::create("stuff");
+
 // Get a value by key
 $foo = $settings->get('foo');
 

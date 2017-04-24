@@ -90,8 +90,12 @@ class FlintRedisCacheTest extends TestCase
     public function flushProvider()
     {
         return [
-            'flintstone' => [ FlintRedisCacheFactory::create('testFlush', FlintRedisCacheFactory::STRATEGY_FLINTSTONE) ],
-            'redis' => [ FlintRedisCacheFactory::create('testFlush', FlintRedisCacheFactory::STRATEGY_REDIS) ]
+            'flintstone' => [
+                FlintRedisCacheFactory::create('testFlush', FlintRedisCacheFactory::STRATEGY_FLINTSTONE)
+            ],
+            'redis' => [
+                FlintRedisCacheFactory::create('testFlush', FlintRedisCacheFactory::STRATEGY_REDIS)
+            ]
         ];
     }
 }

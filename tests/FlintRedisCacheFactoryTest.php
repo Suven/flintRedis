@@ -4,7 +4,7 @@ namespace Suven\FlintRedis\Test;
 use Suven\FlintRedis\FlintRedisCacheFactory;
 use PHPUnit\Framework\TestCase;
 
-class SingletonsTest extends TestCase
+class FlintRedisCacheFactoryTest extends TestCase
 {
 
     public function testSameRealms()

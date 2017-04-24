@@ -39,25 +39,33 @@ comes with all functions, those two providers share.
 ```php
 use Suven\FlintRedis\FlintRedisCacheFactory;
 
-// Get a new redis-instance for a collection named settings
-$settings = FlintRedisCacheFactory::create("settings", FlintRedisCacheFactory::STRATEGY_REDIS);
+if ($youWantToUseRedis) {
+    FlintRedisCacheFactory::$strategy = FlintRedisCacheFactory::STRATEGY_REDIS;
+    FlintRedisCacheFactory::$options = [
+        "yourOptions" => "that you'd like to pass to predis"
+    ];
+}
 
-// Get a new flintstone-instance for a collection named users
-$users = FlintRedisCacheFactory::create("users", FlintRedisCacheFactory::STRATEGY_FLINTSTONE);
+if ($youWantToUseFlintstone) {
+    FlintRedisCacheFactory::$strategy = FlintRedisCacheFactory::STRATEGY_FLINTSTONE;
+    FlintRedisCacheFactory::$options = [
+        "yourOptions" => "that you'd like to pass to flintstone"
+    ];
+}
 
-// If a collection with given name (and strategy) was already created, that is reused
-$theSameUsersAsBefore = FlintRedisCacheFactory::create("users");
+// Get a new collection for settings
+$settings = FlintRedisCacheFactory::create("settings");
 
-// You can also provide options. The options are the same as described in predis/flintstone
-$stuff = FlintRedisCacheFactory::create("stuff", FlintRedisCacheFactory::STRATEGY_FLINTSTONE, [
+// Set a value
+$settings->set('target', 'worldDomination');
+$settings->set('favNumber', 42);
+$settings->set('someBool', true);
+$settings->set('youCanStoreAnythingPHPcanSerialize', [
     'foo' => 'bar'
 ]);
 
-// When accessing the same collection again, you don't need to pass the options/strategy again
-$sameStuffAsBefore = FlintRedisCacheFactory::create("stuff");
-
 // Get a value by key
-$foo = $settings->get('foo');
+$favNumber = $settings->get('favNumber');
 
 // Get all values
 $allSettings = $settings->getAll();
@@ -66,7 +74,7 @@ $allSettings = $settings->getAll();
 $settingKeys = $settings->getKeys();
 
 // Delete a value by key
-$settings->delete('foo');
+$settings->delete('favNumber');
 
 // Delete all settings
 $settings->flush();

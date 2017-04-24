@@ -73,6 +73,7 @@ class FlintRedisCacheTest extends TestCase
     public function testFlush($collection)
     {
         $collection->set('tempTestFoo', 999);
+        $collection->set('tempTestFoo2', 666);
         $this->assertGreaterThan(1, sizeof($collection->getKeys()));
         $collection->flush();
         $this->assertEquals(0, sizeof($collection->getKeys()));
@@ -89,8 +90,8 @@ class FlintRedisCacheTest extends TestCase
     public function flushProvider()
     {
         return [
-            'flintstone' => [ FlintRedisCacheFactory::create('testGet', FlintRedisCacheFactory::STRATEGY_FLINTSTONE) ],
-            'redis' => [ FlintRedisCacheFactory::create('testGet', FlintRedisCacheFactory::STRATEGY_REDIS) ]
+            'flintstone' => [ FlintRedisCacheFactory::create('testFlush', FlintRedisCacheFactory::STRATEGY_FLINTSTONE) ],
+            'redis' => [ FlintRedisCacheFactory::create('testFlush', FlintRedisCacheFactory::STRATEGY_REDIS) ]
         ];
     }
 }

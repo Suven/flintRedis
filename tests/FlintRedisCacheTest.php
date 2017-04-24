@@ -82,8 +82,8 @@ class FlintRedisCacheTest extends TestCase
     public function cacheProvider()
     {
         return [
-            'flintstone' => [ FlintRedisCacheFactory::create('testGet', FlintRedisCacheFactory::STRATEGY_FLINTSTONE) ],
-            'redis' => [ FlintRedisCacheFactory::create('testGet', FlintRedisCacheFactory::STRATEGY_REDIS) ]
+            'flintstone' => [ FlintRedisCacheFactory::create('testGetF', FlintRedisCacheFactory::STRATEGY_FLINTSTONE) ],
+            'redis' => [ FlintRedisCacheFactory::create('testGetR', FlintRedisCacheFactory::STRATEGY_REDIS) ]
         ];
     }
 
@@ -91,10 +91,10 @@ class FlintRedisCacheTest extends TestCase
     {
         return [
             'flintstone' => [
-                FlintRedisCacheFactory::create('testFlush', FlintRedisCacheFactory::STRATEGY_FLINTSTONE)
+                FlintRedisCacheFactory::create('testFlushF', FlintRedisCacheFactory::STRATEGY_FLINTSTONE)
             ],
             'redis' => [
-                FlintRedisCacheFactory::create('testFlush', FlintRedisCacheFactory::STRATEGY_REDIS)
+                FlintRedisCacheFactory::create('testFlushR', FlintRedisCacheFactory::STRATEGY_REDIS)
             ]
         ];
     }
